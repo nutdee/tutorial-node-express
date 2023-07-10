@@ -1,12 +1,9 @@
-const express = require('express')
-const app = express()
+const express = require("express");
+const app = express();
+const config = require("./configs/app");
 
-const config = require('./configs/app')
-
-app.get('/', (req, res) => {
-  res.send('Hello World')
-})
+app.use(require("./routes"));
 
 app.listen(config.port, () => {
-  console.log('Start server at port 3030.')
-})
+  console.log("Start server at port 3030.");
+});

@@ -23,6 +23,17 @@ const methods = {
       res.status(500).json(error);
     }
   },
+  async updateUser(req, res) {
+    try {
+      let result = await userService.updateUser(req.params.id, req.body);
+      let response = {
+        data: result,
+      };
+      res.status(200).json(response);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
 };
 
 module.exports = { ...methods };

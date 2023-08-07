@@ -2,9 +2,13 @@ const express = require("express");
 const app = express();
 const config = require("./configs/app");
 
-// Express Configs
+// express configs
 require('./configs/express')(app)
 
+// connect database
+require("./configs/database.js");
+
+// route
 app.use(require("./routes"));
 
 app.listen(config.port, () => {

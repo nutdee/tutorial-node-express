@@ -1,4 +1,4 @@
-require("dotenv").config();
+const config = require("../configs/app");
 const User = require("../models/user.model");
 const md5 = require("md5");
 const jwt = require("jsonwebtoken");
@@ -28,8 +28,26 @@ const methods = {
 
         const accessToken = jwt.sign(
           payload,
-          process.env.JWT_ACCESS_TOKEN_SECRET,
+          config.jwtAccessTokenSecret,
           { expiresIn: "1h" }
+        );
+        resolve(accessToken);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  },
+  async genRefreshToken(user) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const payload = {
+          id: user.id,
+        };
+
+        const accessToken = jwt.sign(
+          payload,
+          config.jwtRefreshTokenSecret,
+          { expiresIn: "24h" }
         );
         resolve(accessToken);
       } catch (error) {

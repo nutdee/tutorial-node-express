@@ -6,8 +6,10 @@ const methods = {
       const user = await authService.login(req.body);
       if (user) {
         const token = await authService.genAccessToken(user);
+        const refreshToken = await authService.genRefreshToken(user);
         let response = {
           accessToken: token,
+          refreshToken: refreshToken
         };
         res.status(200).json(response);
       } else {
